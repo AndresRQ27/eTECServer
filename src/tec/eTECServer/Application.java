@@ -7,6 +7,7 @@ import Prueba.prueba;
 public class Application extends ResourceConfig {
 	public Application(){
 		register(prueba.class);
+		register(Clientes.class);
 	}
 
 }
