@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="JSON &amp; Rest">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/javax.ws.rs.jar!/" />
+      <root url="file://$USER_HOME$/Documents/JSON/Jackson" />
+      <root url="file://$USER_HOME$/Documents/JSON/jersey/allJersey" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Documents/javax.ws.rs.jar!/" />
+      <root url="file://$USER_HOME$/Documents/JSON/jersey/allJersey" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Documents/JSON/Jackson" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Documents/JSON/jersey/allJersey" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Documents/JSON/jersey/allJersey" recursive="false" type="SOURCES" />
+  </library>
+</component>
