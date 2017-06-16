@@ -39,7 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public static int ingresarNodoOrigen(String nodoOrige, String noExiste,int tope){
-        int nodoOrigen = 0;
+        int nodoOrigen;
         try{
             nodoOrigen = Integer.parseInt(JOptionPane.showInputDialog(""+nodoOrige));
             if(nodoOrigen>=tope){
@@ -52,7 +52,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return nodoOrigen;
     }
     private int ingresarTamano(String tama){
-        int tamano = 0;
+        int tamano;
         try{
             tamano = Integer.parseInt(JOptionPane.showInputDialog(""+tama));
             if(tamano<1){ JOptionPane.showMessageDialog(null,"Debe Ingresar un Tamaño Aceptado..");
@@ -183,11 +183,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jDialog1.getContentPane().setLayout(null);
 
         jFileChooser2.setMaximumSize(new java.awt.Dimension(21475, 21474));
-        jFileChooser2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser2ActionPerformed(evt);
-            }
-        });
+        jFileChooser2.addActionListener(evt -> jFileChooser2ActionPerformed(evt));
         jDialog1.getContentPane().add(jFileChooser2);
         jFileChooser2.setBounds(10, 20, 670, 390);
 
@@ -217,19 +213,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         jButton1.setText("Guardar");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         getContentPane().add(jButton1);
         jButton1.setBounds(30, 110, 150, 50);
 
         jButton2.setText("Guarda & Salir");
-        jButton2.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton1ActionPerformed);
 
         getContentPane().add(jButton2);
         jButton2.setBounds(30, 210, 150, 50);
 
         jButton3.setText("Salir");
-        jButton3.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton3.addActionListener(this::jButton1ActionPerformed);
 
         getContentPane().add(jButton3);
         jButton3.setBounds(30, 310, 150, 50);
@@ -245,78 +241,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem13.setText("Camino Más Corto");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
+        jMenuItem13.addActionListener(evt -> jMenuItem13ActionPerformed(evt));
         jMenu1.add(jMenuItem13);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Recubrir");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
+        jMenuItem3.addActionListener(evt -> jMenuItem3ActionPerformed(evt));
         jMenu1.add(jMenuItem3);
         jMenu1.add(jSeparator3);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Nueva Arista");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
+        jMenuItem2.addActionListener(evt -> jMenuItem2ActionPerformed(evt));
         jMenu1.add(jMenuItem2);
         jMenu1.add(jSeparator2);
 
         jMenuItem5.setText("Matriz De coeficiente");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
+        jMenuItem5.addActionListener(evt -> jMenuItem5ActionPerformed(evt));
         jMenu1.add(jMenuItem5);
 
         jMenuItem7.setText("Matiz De adyacencia");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
+        jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
         jMenu1.add(jMenuItem7);
 
         jMenu1.add(jMenuItem4);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Cargar Mapa");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
+        jMenuItem6.addActionListener(evt -> jMenuItem6ActionPerformed(evt));
         jMenu1.add(jMenuItem6);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setText("Cargar Grafo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-            // TODO cargar archivo xml
-        });
+        // TODO cargar archivo xml
+        jMenuItem1.addActionListener(evt -> jMenuItem1ActionPerformed(evt));
         jMenu1.add(jMenuItem1);
         jMenu1.add(jSeparator5);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setText("Salir");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
+        jMenuItem8.addActionListener(this::jMenuItem8ActionPerformed);
         jMenu1.add(jMenuItem8);
 
         jMenuBar1.add(jMenu1);
@@ -325,40 +289,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem10.setText("Eliminar Nodo");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
+        jMenuItem10.addActionListener(evt -> jMenuItem10ActionPerformed(evt));
         jMenu2.add(jMenuItem10);
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem9.setText("Eliminar Arista");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
+        jMenuItem9.addActionListener(evt -> jMenuItem9ActionPerformed(evt));
         jMenu2.add(jMenuItem9);
 
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem11.setText("Eliminar Todas Las Arsitas ");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
+        jMenuItem11.addActionListener(evt -> jMenuItem11ActionPerformed(evt));
         jMenu2.add(jMenuItem11);
 
         jMenuBar1.add(jMenu2);
 
         jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItem12.setText("Color");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
+        jMenuItem12.addActionListener(evt -> jMenuItem12ActionPerformed(evt));
 
         setJMenuBar(jMenuBar1);
 
@@ -519,7 +467,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 grafo.setmCoeficiente(j, k, 0);
             }
         }
-        tope=00;
+        tope= 0;
         jPanel1.repaint();
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed

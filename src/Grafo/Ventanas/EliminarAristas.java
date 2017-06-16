@@ -67,11 +67,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Eliminar Arista"));
         jPanel1.setLayout(null);
 
-        n1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                n1ActionPerformed(evt);
-            }
-        });
+        n1.addActionListener(evt -> n1ActionPerformed(evt));
         n1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 n1KeyPressed(evt);
@@ -83,11 +79,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.add(n1);
         n1.setBounds(100, 30, 30, 20);
 
-        n2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                n2ActionPerformed(evt);
-            }
-        });
+        n2.addActionListener(evt -> n2ActionPerformed(evt));
         n2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 n2KeyReleased(evt);
@@ -108,11 +100,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.setBounds(10, 10, 150, 90);
 
         jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
         getContentPane().add(jButton1);
         jButton1.setBounds(30, 110, 90, 23);
 
@@ -128,8 +116,8 @@ public class EliminarAristas extends javax.swing.JFrame {
     }//GEN-LAST:event_n1KeyPressed
 
     private void n1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n1KeyReleased
-        String tem = new String(n1.getText());
-        StringBuffer tem2= new StringBuffer();
+        String tem = n1.getText();
+        StringBuilder tem2= new StringBuilder();
         for (int j = 0; j < tem.length(); j++) {
             if(Character.isDigit(tem.charAt(j))){
                 tem2.append(tem.charAt(j));
@@ -139,8 +127,8 @@ public class EliminarAristas extends javax.swing.JFrame {
     }//GEN-LAST:event_n1KeyReleased
 
     private void n2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n2KeyReleased
-        String tem = new String(n2.getText());
-        StringBuffer tem2= new StringBuffer();
+        String tem = n2.getText();
+        StringBuilder tem2= new StringBuilder();
         for (int j = 0; j < tem.length(); j++) {
             if(Character.isDigit(tem.charAt(j))){
                 tem2.append(tem.charAt(j));
@@ -201,13 +189,7 @@ public class EliminarAristas extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarAristas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarAristas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarAristas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
             java.util.logging.Logger.getLogger(EliminarAristas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

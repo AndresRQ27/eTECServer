@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 
 public class Node<T> {
-	//CasoClínico caso;
+	//CasoClï¿½nico caso;
 	private T Element;
 	private int balanceF;
 	private Node<T> left;
@@ -80,8 +80,8 @@ public class Node<T> {
 	}
 	
 	public int getHeight(){
-		int leftH = 0;
-		int rightH = 0;
+		int leftH;
+		int rightH;
 		
 		if(this.getElement()==null){
 		  return 0;

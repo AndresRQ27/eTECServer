@@ -73,11 +73,7 @@ public class VentanaArista extends javax.swing.JFrame {
         panel.add(jLabel3);
         jLabel3.setBounds(10, 90, 100, 14);
 
-        n1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                n1ActionPerformed(evt);
-            }
-        });
+        n1.addActionListener(evt -> n1ActionPerformed(evt));
         n1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 n1KeyPressed(evt);
@@ -97,11 +93,7 @@ public class VentanaArista extends javax.swing.JFrame {
         panel.add(n2);
         n2.setBounds(110, 60, 30, 20);
 
-        tm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tmActionPerformed(evt);
-            }
-        });
+        tm.addActionListener(evt -> tmActionPerformed(evt));
         tm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tmKeyReleased(evt);
@@ -114,11 +106,7 @@ public class VentanaArista extends javax.swing.JFrame {
         panel.setBounds(10, 10, 150, 130);
 
         jButton1.setText("Trazar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
         getContentPane().add(jButton1);
         jButton1.setBounds(40, 140, 90, 23);
 
@@ -153,8 +141,8 @@ public class VentanaArista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void n1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n1KeyReleased
-        String tem = new String(n1.getText());
-        StringBuffer tem2= new StringBuffer();
+        String tem = n1.getText();
+        StringBuilder tem2= new StringBuilder();
         for (int j = 0; j < tem.length(); j++) {
             if(Character.isDigit(tem.charAt(j))){
                 tem2.append(tem.charAt(j));
@@ -168,8 +156,8 @@ public class VentanaArista extends javax.swing.JFrame {
     }//GEN-LAST:event_n1KeyPressed
 
     private void n2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n2KeyReleased
-        String tem = new String(n2.getText());
-        StringBuffer tem2= new StringBuffer();
+        String tem = n2.getText();
+        StringBuilder tem2= new StringBuilder();
         for (int j = 0; j < tem.length(); j++) {
             if(Character.isDigit(tem.charAt(j))){
                 tem2.append(tem.charAt(j));
@@ -179,8 +167,8 @@ public class VentanaArista extends javax.swing.JFrame {
     }//GEN-LAST:event_n2KeyReleased
 
     private void tmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tmKeyReleased
-        String tem = new String(tm.getText());
-        StringBuffer tem2= new StringBuffer();
+        String tem = tm.getText();
+        StringBuilder tem2= new StringBuilder();
         for (int j = 0; j < tem.length(); j++) {
             if(Character.isDigit(tem.charAt(j))){
                 tem2.append(tem.charAt(j));
@@ -221,22 +209,14 @@ public class VentanaArista extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
             java.util.logging.Logger.getLogger(VentanaArista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                // new VentanaArista().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            // new VentanaArista().setVisible(true);
         });
     }
     private int i=0;
