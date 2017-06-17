@@ -1,5 +1,8 @@
 package Grafo.Clases;
 
+import Grafo.General.Listas;
+import Grafo.General.Tipos;
+
 import static Grafo.Ventanas.VentanaPrincipal.jPanel1;
 import static Grafo.Ventanas.VentanaPrincipal.R_repaint;
 
@@ -31,10 +34,6 @@ public class Algoritmo_Dijkstra {
 
     }
 
-    public int getAcumulado(){
-        return nodo[nodoFin].getAcumulado();
-    }
-
     public void dijkstra(){
         for (int i = 0; i < tope; i++)  // creamos el vector nodo del tamaño de tope el cual tiene el numero de nodo pintados
             nodo[i]= new Nodo();
@@ -53,19 +52,20 @@ public class Algoritmo_Dijkstra {
                 int auxAumulado = 2000000000;
                 nodo[permanente].setEtiqueta();
                 for (int j = 0; j < tope; j++) {
-                    if(grafo.getmAdyacencia(j, permanente)==1){
-                        subAcomulado = nodo[permanente].getAcumulado()+grafo.getmCoeficiente(j, permanente);
-                        if(subAcomulado <= nodo[j].getAcumulado() && nodo[j].isVisitado() && nodo[j].isEtiqueta()){
-                            nodo[j].setAcumulado(subAcomulado);
-                            nodo[j].setVisitado();
-                            nodo[j].setNombre(j);
-                            nodo[j].setPredecesor(nodo[permanente]);
-                        }
-                        else if(!nodo[j].isVisitado()){
-                            nodo[j].setAcumulado(subAcomulado);
-                            nodo[j].setVisitado();
-                            nodo[j].setNombre(j);
-                            nodo[j].setPredecesor(nodo[permanente]);
+                    if (Listas.listaTipos.get(j) == Tipos.TIENDA || j==nodoFin) {
+                        if (grafo.getmAdyacencia(j, permanente) == 1) {
+                            subAcomulado = nodo[permanente].getAcumulado() + grafo.getmCoeficiente(j, permanente);
+                            if (subAcomulado <= nodo[j].getAcumulado() && nodo[j].isVisitado() && nodo[j].isEtiqueta()) {
+                                nodo[j].setAcumulado(subAcomulado);
+                                nodo[j].setVisitado();
+                                nodo[j].setNombre(j);
+                                nodo[j].setPredecesor(nodo[permanente]);
+                            } else if (!nodo[j].isVisitado()) {
+                                nodo[j].setAcumulado(subAcomulado);
+                                nodo[j].setVisitado();
+                                nodo[j].setNombre(j);
+                                nodo[j].setPredecesor(nodo[permanente]);
+                            }
                         }
                     }
                 }
