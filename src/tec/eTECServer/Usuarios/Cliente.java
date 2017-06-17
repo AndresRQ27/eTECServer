@@ -1,7 +1,5 @@
 package tec.eTECServer.Usuarios;
 
-import tec.eTECServer.Producto.Producto;
-
 public class Cliente implements Comparable<Cliente>{
 	private String nombre, correo, ctroDistribucion;
 	
@@ -12,16 +10,15 @@ public class Cliente implements Comparable<Cliente>{
 	}
 
 	public Cliente(){
-		
+
 	}
-	
 
 	public Cliente(String nombre) {
 		super();
 		this.nombre = nombre;
 	}
 
-	public String getNombre() {
+	private String getNombre() {
 		return nombre;
 	}
 
@@ -44,6 +41,6 @@ public class Cliente implements Comparable<Cliente>{
 	public void setCtroDistribucion(String ctroDistribucion) {
 		this.ctroDistribucion = ctroDistribucion;
 	}
-	
-	
+
+
 }

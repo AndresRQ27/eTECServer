@@ -4,9 +4,14 @@ import Grafo.Clases.Grafo;
 import Grafo.Clases.Pintar;
 import Grafo.Clases.Algoritmo_Dijkstra;
 import Grafo.Clases.Algoritmo_Prim;
+import Grafo.General.Listas;
+import Grafo.General.Tipos;
+import tec.eTECServer.PtosServicio.Tienda;
+
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -26,43 +31,62 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     private final Pintar pintar =new Pintar();
     private final Grafo grafo = new Grafo();
+
     public static void R_repaint(int tope, Grafo grafo){//pinta lo que esta antes en el panel
         for (int j = 0; j < tope; j++) {
             for (int k = 0; k < tope; k++) {
                 if(grafo.getmAdyacencia(j, k) == 1)
-                    Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(j),grafo.getCordeY(j), grafo.getCordeX(k), grafo.getCordeY(k),grafo.getmCoeficiente(j, k));
+                    Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(j),grafo.getCordeY(j), grafo.getCordeX(k), grafo.getCordeY(k),grafo.getmCoeficiente(j, k),grafo.getnCoeficiente(j,k));
             }
         }
         for (int j = 0; j < tope; j++)
-            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(j),grafo.getCordeY(j),String.valueOf(grafo.getNombre(j)));
+            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(j),grafo.getCordeY(j),String.valueOf(grafo.getNombre(j)), Tipos.getColor(Listas.listaTipos.get(j)));
 
     }
 
     public static int ingresarNodoOrigen(String nodoOrige, String noExiste,int tope){
-        int nodoOrigen = 0;
+        int nodoOrigen = -1;
         try{
             nodoOrigen = Integer.parseInt(JOptionPane.showInputDialog(""+nodoOrige));
             if(nodoOrigen>=tope){
                 JOptionPane.showMessageDialog(null,""+noExiste+"\nDebe de ingresar  un Nodo existente");
                 nodoOrigen = ingresarNodoOrigen(nodoOrige,noExiste, tope);
+            } else {
+
             }
         }catch(Exception ex){
-            nodoOrigen = ingresarNodoOrigen(nodoOrige,noExiste,tope);
+            JOptionPane.getRootFrame().dispose();
         }
         return nodoOrigen;
     }
-    private int ingresarTamano(String tama){
-        int tamano = 0;
+    private int ingresarTiempo(String temp){
+        int tiempo;
         try{
-            tamano = Integer.parseInt(JOptionPane.showInputDialog(""+tama));
-            if(tamano<1){ JOptionPane.showMessageDialog(null,"Debe Ingresar un Tamaño Aceptado..");
-                tamano = ingresarTamano(tama);//no es nesario hacer esto
+            tiempo = Integer.parseInt(JOptionPane.showInputDialog(""+temp));
+            if(tiempo<1){ JOptionPane.showMessageDialog(null,"Debe Ingresar un Valor Aceptado..");
+                tiempo = ingresarTiempo(temp);
             }
         }catch(Exception ex){
-            tamano = ingresarTamano(tama);
+            tiempo = ingresarTiempo(temp);
         }
-        return tamano;
+        return tiempo;
     }
+
+    private String ingresarPeligro(String peligr){
+        String peligro;
+        try{
+            String[] possibleValues = { "Alto", "Medio", "Bajo" };
+            peligro = (String) JOptionPane.showInputDialog(null,
+                    "Choose one", "Peligrosidad",
+                    JOptionPane.INFORMATION_MESSAGE, null,
+                    possibleValues, possibleValues[0]);
+
+        }catch(Exception ex){
+            peligro = ingresarPeligro(peligr);
+        }
+        return peligro;
+    }
+
     private boolean clickDerechoSobreNodo(int xxx, int yyy, int clickCount){
 
         for (int j = 0; j < tope; j++) {// consultamos si se ha sado  click sobre algun nodo
@@ -72,15 +96,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     if (n == 0) {
                         id = j;
                         R_repaint(tope, grafo);
-                        Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null, Color.orange);
+                        Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), Color.orange);
                         n++;
                     } else {
                         id2 = j;
                         n++;
-                        Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null, Color.orange);
+                        Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), Color.orange);
                         if (id == id2) {// si id == id2 por q se volvio a dar click sobre el mismos nodo, se cancela el click anterio
                             n = 0;
-                            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)));
+                            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)), Tipos.getColor(Listas.listaTipos.get(id)));
                             id = -1;
                             id2 = -1;
                         }
@@ -103,7 +127,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 nn++;
                 n=0;
                 id =-1;
-                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null,Color.GREEN);
+                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), Color.GREEN);
                 break;
             }
 
@@ -135,46 +159,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
-        jFileChooser2 = new JFileChooser();
+        JFileChooser jFileChooser2 = new JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jmapa = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        javax.swing.JButton jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        javax.swing.JButton jButton2 = new javax.swing.JButton();
+        javax.swing.JButton jButton3 = new javax.swing.JButton();
+        javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
+        javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
+        javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem jMenuItem13 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem jMenuItem2 = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem jMenuItem5 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem7 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem4 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem6 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem jMenuItem8 = new javax.swing.JMenuItem();
+        javax.swing.JMenu jMenu2 = new javax.swing.JMenu();
+        javax.swing.JMenuItem jMenuItem10 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem9 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem11 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem12 = new javax.swing.JMenuItem();
 
         jDialog1.setMaximumSize(new java.awt.Dimension(700, 450));
         jDialog1.setMinimumSize(new java.awt.Dimension(700, 450));
@@ -183,11 +194,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jDialog1.getContentPane().setLayout(null);
 
         jFileChooser2.setMaximumSize(new java.awt.Dimension(21475, 21474));
-        jFileChooser2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser2ActionPerformed(evt);
-            }
-        });
+        jFileChooser2.addActionListener(this::jFileChooser2ActionPerformed);
         jDialog1.getContentPane().add(jFileChooser2);
         jFileChooser2.setBounds(10, 20, 670, 390);
 
@@ -201,10 +208,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(770, 522));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
 
-            public void mousePressed(java.awt.event.MouseEvent e) {
-
+            public void mousePressed(MouseEvent e) {
                 jPanel1MousePressed(e);
+            }
 
+            public void mouseEntered(MouseEvent e){
+                R_repaint(tope, grafo);
             }
         });
 
@@ -217,22 +226,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         jButton1.setText("Guardar");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         getContentPane().add(jButton1);
         jButton1.setBounds(30, 110, 150, 50);
-
-        jButton2.setText("Guarda & Salir");
-        jButton2.addActionListener(evt -> jButton1ActionPerformed(evt));
-
-        getContentPane().add(jButton2);
-        jButton2.setBounds(30, 210, 150, 50);
-
-        jButton3.setText("Salir");
-        jButton3.addActionListener(evt -> jButton1ActionPerformed(evt));
-
-        getContentPane().add(jButton3);
-        jButton3.setBounds(30, 310, 150, 50);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setLayout(null);
@@ -245,78 +242,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem13.setText("Camino Más Corto");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
+        jMenuItem13.addActionListener(this::jMenuItem13ActionPerformed);
         jMenu1.add(jMenuItem13);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Recubrir");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenu1.add(jMenuItem3);
         jMenu1.add(jSeparator3);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Nueva Arista");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
         jMenu1.add(jSeparator2);
 
         jMenuItem5.setText("Matriz De coeficiente");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
         jMenu1.add(jMenuItem5);
 
         jMenuItem7.setText("Matiz De adyacencia");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
+        jMenuItem7.addActionListener(this::jMenuItem7ActionPerformed);
         jMenu1.add(jMenuItem7);
 
         jMenu1.add(jMenuItem4);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Cargar Mapa");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
+        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
         jMenu1.add(jMenuItem6);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setText("Cargar Grafo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-            // TODO cargar archivo xml
-        });
+        // TODO cargar archivo xml
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu1.add(jMenuItem1);
         jMenu1.add(jSeparator5);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setText("Salir");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
+        jMenuItem8.addActionListener(this::jMenuItem8ActionPerformed);
         jMenu1.add(jMenuItem8);
 
         jMenuBar1.add(jMenu1);
@@ -325,40 +290,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem10.setText("Eliminar Nodo");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
+        jMenuItem10.addActionListener(this::jMenuItem10ActionPerformed);
         jMenu2.add(jMenuItem10);
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem9.setText("Eliminar Arista");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
+        jMenuItem9.addActionListener(this::jMenuItem9ActionPerformed);
         jMenu2.add(jMenuItem9);
 
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem11.setText("Eliminar Todas Las Arsitas ");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
+        jMenuItem11.addActionListener(this::jMenuItem11ActionPerformed);
         jMenu2.add(jMenuItem11);
 
         jMenuBar1.add(jMenu2);
 
         jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItem12.setText("Color");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
+        jMenuItem12.addActionListener(this::jMenuItem12ActionPerformed);
 
         setJMenuBar(jMenuBar1);
 
@@ -366,7 +315,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+    private void jButton2ActionPerformed(ActionEvent actionEvent) {
+        R_repaint(tope, grafo);
+    }
+
+    private void jPanel1MousePressed(MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         int xxx, yyy;
         xxx=evt.getX();
         yyy=evt.getY();
@@ -384,76 +337,62 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     grafo.setCordeX(tope,xxx);
                     grafo.setCordeY(tope,yyy);
                     grafo.setNombre(tope, tope);
-                    Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
+
+                    String[] possibleValues = { "Tienda", "Gasolinera", "Centro de Distribución" };
+                    String selectedValue = (String) JOptionPane.showInputDialog(null,
+                            "Choose one", "Tipo de Establecimiento",
+                            JOptionPane.INFORMATION_MESSAGE, null,
+                            possibleValues, possibleValues[0]);
+
+                    Tipos tipo = Tipos.TIENDA;
+
+                    switch (selectedValue){
+
+                        case "Tienda": {
+                            tipo = Tipos.TIENDA;
+                            Listas.listaTipos.add(tipo);
+                            Tienda.listaTiendas.add(new Tienda(tope));
+                            break;
+                        }
+
+                        case "Gasolinera": {
+                            tipo = Tipos.GASOLINERA;
+                            Listas.listaTipos.add(tipo);
+                            break;
+                        }
+
+                        case "Centro de Distribución": {
+                            tipo = Tipos.CENTRO_DE_DISTRIBUCION;
+                            Listas.listaTipos.add(tipo);
+                            break;
+                        }
+                    }
+
+                    Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)), Tipos.getColor(tipo));
                     tope++;
                 }
                 else JOptionPane.showMessageDialog(null,"Se ha llegado al Maximo de nodos..");
             }
             if(n==2){
                 n=0;
-                int  ta = ingresarTamano("Ingrese Tamaño");
+                int  ta = ingresarTiempo("Ingrese Tiempo");
+                String pe = ingresarPeligro("Ingrese Peligrosidad");
                 if(aristaMayor < ta) aristaMayor=ta;
+                Listas.listaAristas.add(new Listas.Aristas(id, id2, ta, pe));
                 grafo.setmAdyacencia(id2, id, 1);
                 grafo.setmAdyacencia(id, id2, 1);
-                grafo.setmCoeficiente(id2, id,ta );
+                grafo.setmCoeficiente(id2, id, ta);
                 grafo.setmCoeficiente(id, id2, ta);
-                Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id), grafo.getCordeX(id2), grafo.getCordeY(id2), ta);
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)));
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)));
+                grafo.setnCoeficiente(id2, id, pe);
+                grafo.setnCoeficiente(id, id2, pe);
+                Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id), grafo.getCordeX(id2), grafo.getCordeY(id2), ta, pe);
+                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)), Tipos.getColor(Listas.listaTipos.get(id)));
+                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)), Tipos.getColor(Listas.listaTipos.get(id2)));
                 id=-1;
                 id2=-1;
             }
         }
     }//GEN-LAST:event_jPanel1MousePressed
-
-    private void jMenuItem4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MousePressed
-
-    }//GEN-LAST:event_jMenuItem4MousePressed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        //jMenuItem2.setEnabled(false);
-        jPanel1.paint(jPanel1.getGraphics());
-        n=0;
-        id=-1;
-        id2=-1;
-        int Matriz[][]={{0,1,0,1,1,0,0,1},
-                {1,0,1,0,0,0,0,0},
-                {0,1,0,1,1,0,0,0},
-                {1,0,1,0,0,0,0,0},
-                {1,0,1,0,0,1,0,0},
-                {0,0,0,0,1,0,1,1},
-                {0,0,0,0,0,1,0,0},
-                {1,0,0,0,0,1,0,0}
-        };
-        int coe[][]={{0,50,0,46,216,0,0,578},
-                {50,0,59,0,0,0,0,0},
-                {0,59,0,89,174,0,0,0},
-                {46,0,89,0,0,0,0,0},
-                {216,0,174,0,0,471,0,0} ,
-                {0,0,0,0,471,0,194,398},
-                {0,0,0,0,0,194,0,0},
-                {578,0,0,0,0,398,0,0},
-
-        };
-        int xx1[]={202,102,8,198,248,352,481,416};
-        int yy1[]={12,74,165,113,233,300,368,177};
-        int nom[]={0,1,2,3,4,5,6,7};
-        aristaMayor=600;
-        for (int j = 0; j < 8; j++) {
-            grafo.setCordeX(j, xx1[j]);
-            grafo.setCordeY(j, yy1[j]);
-            grafo.setNombre(j, nom[j]);
-
-        }
-        for (int j = 0; j < 8; j++) {
-            for (int k = 0; k < 8; k++) {
-                grafo.setmAdyacencia(j,k, Matriz[j][k]);
-                grafo.setmCoeficiente(j, k, coe[j][k]);
-            }
-        }
-        tope=8;
-        R_repaint(tope,grafo);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if(tope<1)
@@ -461,27 +400,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         else{
             Algoritmo_Prim Prim = new Algoritmo_Prim(grafo,tope, aristaMayor);
             Prim.prim();
-            jtacumulado.setText(""+Prim.getCumulado());
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
         if(tope==0)
             JOptionPane.showMessageDialog(null,"Aun no se ha credo un nodo : ");
 
         else{
             this.setEnabled(false);
             new Matrices(tope,grafo,2,this).setVisible(true);
+            R_repaint(tope, grafo);
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+
         if(tope==0)
             JOptionPane.showMessageDialog(null,"Aun no se ha credo un nodo : ");
 
         else{
             this.setEnabled(false);
             new Matrices(tope,grafo,1,this).setVisible(true);
+            R_repaint(tope, grafo);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
@@ -519,14 +461,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 grafo.setmCoeficiente(j, k, 0);
             }
         }
-        tope=00;
+        tope= 0;
         jPanel1.repaint();
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1MouseMoved
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         if(tope>=2){
@@ -620,10 +558,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         R_repaint(tope,grafo);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        jPanel2.setVisible(false);  // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
-
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         jPanel2.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem12ActionPerformed
@@ -634,18 +568,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             nodoFin =  ingresarNodoOrigen("Ingrese Nodo Fin..","nodo fin No existe",tope);
             Algoritmo_Dijkstra Dijkstra = new Algoritmo_Dijkstra(grafo,tope,permanente,nodoFin);
             Dijkstra.dijkstra();
-            jtacumulado.setText(""+Dijkstra.getAcumulado());
         }
         else JOptionPane.showMessageDialog(null,"Se deben de crear mas nodos ... ");
     }//GEN-LAST:event_jMenuItem13ActionPerformed
-
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1MouseClicked
-
-    private void jtacumuladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtacumuladoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtacumuladoActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         jDialog1.setVisible(true); // TODO add your handling code here:
@@ -679,52 +604,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private int aristaMayor;
 
 
-
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JDialog jDialog1;
-    private JFileChooser jFileChooser2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel jmapa;
-    private javax.swing.JTextField jtacumulado;
     // End of variables declaration//GEN-END:variables
 }
 

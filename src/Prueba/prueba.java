@@ -10,7 +10,7 @@ import tec.eTECServer.Usuarios.Cliente;
 
 @Path("/prueba")
 public class prueba {
-	
+
 	
 	public prueba(){
 		

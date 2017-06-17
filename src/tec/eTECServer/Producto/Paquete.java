@@ -2,7 +2,7 @@ package tec.eTECServer.Producto;
 
 import java.util.ArrayList;
 
-public class Paquete {
+class Paquete {
 	private ArrayList<Producto> productos = new ArrayList<>();
 	private String estado;
 	

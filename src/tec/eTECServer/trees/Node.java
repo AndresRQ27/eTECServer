@@ -1,12 +1,9 @@
 package tec.eTECServer.trees;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-
 
 public class Node<T> {
-	//CasoClínico caso;
+	//CasoClï¿½nico caso;
 	private T Element;
 	private int balanceF;
 	private Node<T> left;
@@ -16,14 +13,14 @@ public class Node<T> {
 	
 	
 	public Node(T element){
-		this(element, null, null, null);
+		this(element, null);
 	}
-	private Node(T element, Node<T> left, Node<T> right, Node<T> father){
+	private Node(T element, Node<T> left){
 		this.Element = element;
 		this.balanceF = 0;
-		this.right = right;
+		this.right = null;
 		this.left = left;
-		this.father = father;
+		this.father = null;
 		
 	}
 	//Gets
@@ -80,8 +77,8 @@ public class Node<T> {
 	}
 	
 	public int getHeight(){
-		int leftH = 0;
-		int rightH = 0;
+		int leftH;
+		int rightH;
 		
 		if(this.getElement()==null){
 		  return 0;
@@ -119,7 +116,7 @@ public class Node<T> {
 		//tree.remove(10);
 		//tree.remove(5);
 		//tree.remove(6);
-		System.out.println(tree.route(17));
+		System.out.println(tree.route());
 		
 		tree.postOrden(tree.getRoot()); //Binario
 		//tree.postOrden(tree.getRoot()); //Splay

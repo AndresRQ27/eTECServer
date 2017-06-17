@@ -1,20 +1,23 @@
 package Grafo.Ventanas;
 
 import Grafo.Clases.Grafo;
-import java.awt.Frame;
+
+import java.awt.*;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
-public class Matrices extends javax.swing.JFrame {
+class Matrices extends javax.swing.JFrame {
 
     /**
      * Creates new form Matrices
      */
-    Grafo arbol;
-    Frame frame;
+    private final Grafo arbol;
+    private final Frame frame;
     public Matrices(int i,Grafo arboles,int matriz,Frame frame ) {
-        this.i=i;
+        int i1 = i;
         this.arbol=arboles;
         this.frame = frame;
 
@@ -22,11 +25,10 @@ public class Matrices extends javax.swing.JFrame {
         if(matriz==1){
             for (int j = 0; j < i; j++) {
                 for (int k = 0; k < i; k++) {
-                    jTextArea1.append(""+arbol.getmAdyacencia(j, k)+"\t");
+                    jTextArea1.append(""+arbol.getmAdyacencia(j, k)+ "/" +arbol.getnCoeficiente(j,k) +"\t");
 
                 }
                 jTextArea1.append("\n");
-
             }
         }
         if(matriz==2){
@@ -36,6 +38,15 @@ public class Matrices extends javax.swing.JFrame {
                 }
                 jTextArea1.append("\n");
             }
+        }
+
+        jTextArea1.append("\n");
+
+        for (int j = 0; j < i; j++) {
+            for (int k = 0; k < i; k++) {
+                jTextArea1.append(""+arbol.getnCoeficiente(j, k)+"\t");
+            }
+            jTextArea1.append("\n");
         }
     }
 
@@ -48,8 +59,8 @@ public class Matrices extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
         setResizable(false);
@@ -65,7 +76,7 @@ public class Matrices extends javax.swing.JFrame {
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Monospaced", Font.BOLD, 12)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -99,29 +110,20 @@ public class Matrices extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Matrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Matrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Matrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
             java.util.logging.Logger.getLogger(Matrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //  new Matrices().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //  new Matrices().setVisible(true);
         });
     }
-    int i;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
+
 }
 

@@ -15,7 +15,7 @@ public class Producto implements Comparable<Producto> {
 		return this.nombre.compareTo(o.getNombre());
 	}
 
-	public String getNombre() {
+	private String getNombre() {
 		return nombre;
 	}
 

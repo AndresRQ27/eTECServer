@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Stack;
 
 public class BinaryTree<T extends Comparable<T>> {
-	protected Node<T> root;
+	private Node<T> root;
 	//Comparador.
-    Comparator<T> comparator;
-	
+    private Comparator<T> comparator;
+
 	public BinaryTree(){
 		this.root=null;
 	}
@@ -17,14 +17,14 @@ public class BinaryTree<T extends Comparable<T>> {
 		return root;
 	}
 	
-	//Insertar en un árbol binario
+	//Insertar en un ï¿½rbol binario
 	public void insert(T element){
 		this.root = this.insert(element, this.root);
 	}
 	private Node<T> insert(T element, Node<T> current){
 
 		if (current == null){
-			return new Node<T>(element);
+			return new Node<>(element);
 		} else if (element.compareTo(current.getElement())<0){
 			current.setLeft(this.insert(element, current.getLeft())) ;
 		}else if (element.compareTo(current.getElement())>0){
@@ -34,7 +34,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	
-	//Buscar en un árbol binario
+	//Buscar en un ï¿½rbol binario
 	public T search(T element){
 		return this.search(element, this.root);
 	}
@@ -50,7 +50,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			return node.getElement();
 		}
 	}
-	
+
 	//Buscar menor
 	public Node<T> findMin(){
 		return findMin(this.root);
@@ -65,13 +65,13 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 	}
 
-	//Eliminar en un árbol binario
+	//Eliminar en un ï¿½rbol binario
 	public void remove(T element){
 		this.root = remove(element, this.root);
 	}
 	private Node<T> remove(T element, Node<T> node){
 		if (node == null){
-			return node;
+			return null;
 		} else if (element.compareTo(node.getElement())<0){
 			node.setLeft(remove(element,node.getLeft()));
 		} else if (element.compareTo(node.getElement())>0) {
@@ -84,25 +84,25 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 		return node;
 	}
-	
-	public void inOrden(Node<T> n){
+
+	private void inOrden(Node<T> n){
 		if (n != null){
 			inOrden (n.getLeft());
 			System.out.println(n.getElement() + ", ");
 			inOrden(n.getRight());
 		}
 	}
-	
-	//Método para recorrer el árbol PreOrden
-	public void preOrden(Node<T> n){
+
+	//Mï¿½todo para recorrer el ï¿½rbol PreOrden
+    private void preOrden(Node<T> n){
 		if (n != null){
 			System.out.println(n.getElement() + ", ");
 			preOrden (n.getLeft());
 			preOrden (n.getRight());
 		}
 	}
-	
-	//Método para recorrer el árbol PostOrden
+
+	//Mï¿½todo para recorrer el ï¿½rbol PostOrden
 	public void postOrden(Node<T> n){
 		if (n != null){
 			postOrden(n.getLeft());
@@ -110,36 +110,36 @@ public class BinaryTree<T extends Comparable<T>> {
 			System.out.println(n.getElement() + ", ");
 		}
 	}
-	
-	//Devuelve la profundidad del nodo, si no está en el árbol devurlve -1
+
+	//Devuelve la profundidad del nodo, si no estï¿½ en el ï¿½rbol devurlve -1
     public int profundidad(T element){
-    	Node<T> node = new Node<T>(element);
+    	Node<T> node = new Node<>(element);
     	int profundidad = 0;
     	while(comparateElement(node.getElement(), this.getRoot().getElement())!=0){
     		profundidad++;
     		node = father(node);
 
     	}
-    	
+
     	return profundidad;
-    
+
     }
-    
-  //Devuelve la altura del nodo, sino esta en el árbol devuelve -1
+
+  //Devuelve la altura del nodo, sino esta en el ï¿½rbol devuelve -1
     public int altura(T dato){
     	Node<T> node = this.getNode(dato);
     	if(!this.contains(dato)){
     		return -1;
     	}
-    	
+
     	return node.getHeight();
     }
-        
-    
+
+
   //Compara dos elementos
-    public int comparateElement(T t1, T t2){
+  int comparateElement(T t1, T t2){
     	if(this.comparator==null){
-    		return ((Comparable<T>)t1).compareTo(t2);
+    		return t1.compareTo(t2);
     	}else{
     		return this.comparator.compare(t1,t2);
     	}
@@ -148,9 +148,9 @@ public class BinaryTree<T extends Comparable<T>> {
 
     
   //Obtiene el nodo padre
-  	public Node<T> father(Node<T> nodo){
+  private Node<T> father(Node<T> nodo){
   		Node<T> tmpRoot = this.getRoot();
-  		Stack<Node<T>> pila = new Stack<Node<T>>();
+  		Stack<Node<T>> pila = new Stack<>();
       	pila.push(tmpRoot);	
       	while(tmpRoot.getRight()!=null || tmpRoot.getLeft()!=null){
   	    	if(this.comparateElement(nodo.getElement(), tmpRoot.getElement())>0){
@@ -173,7 +173,7 @@ public class BinaryTree<T extends Comparable<T>> {
   	}
   	
   //Devuelve el nodo del elemento ingresado
-    public Node<T> getNode(T dato){
+  Node<T> getNode(T dato){
      	Node<T> tmpRoot = this.getRoot();
      	
      	if(this.isEmpty()){
@@ -205,20 +205,20 @@ public class BinaryTree<T extends Comparable<T>> {
     }
     
   //Si esta vacio es true
-    public boolean isEmpty(){
+  boolean isEmpty(){
     	return this.size()==0;
 
     }
     
-    public int size(){
+    int size(){
     	return this.preOrden().size();
     }
     
-  //Imprime en orden primero raíz, despues izquierda y despues derecha
-    public List<T> preOrden(){
-    	List<T> list = new ArrayList<T>();
+  //Imprime en orden primero raï¿½z, despues izquierda y despues derecha
+  List<T> preOrden(){
+    	List<T> list = new ArrayList<>();
     	Node<T> node = this.getRoot();  	
-    	Stack<Node<T>> pila = new Stack<Node<T>>();
+    	Stack<Node<T>> pila = new Stack<>();
 
      	while((node!=null && node.getElement()!=null) || !pila.empty()){
      		if(node!=null){
@@ -235,7 +235,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
     
   //Buscar un nodo
-    public boolean contains(Object o) throws ClassCastException, NullPointerException{
+  boolean contains(Object o) throws ClassCastException, NullPointerException{
     	Node<T> raizTmp = this.getRoot();
     	if(this.isEmpty()){
     		return false;
@@ -269,12 +269,12 @@ public class BinaryTree<T extends Comparable<T>> {
     	return false;
     }
     
-ArrayList<T> camino = new ArrayList<>();
+private final ArrayList<T> camino = new ArrayList<>();
     
-    public ArrayList<T> route(T element){
-		return this.route(element, this.root);
+    public ArrayList<T> route(){
+		return this.route((T) "17", this.root);
 	}
-    public ArrayList<T> route(T element, Node<T> node){
+    ArrayList<T> route(T element, Node<T> node){
 		
 		if (node==null){
 			return null;
@@ -290,11 +290,11 @@ ArrayList<T> camino = new ArrayList<>();
 			return camino;
 		}
 	}
-    
+
     public int longRoute(T element){
 		return this.longRoute(element, this.root);
 	}
-    public int longRoute(T element, Node<T> node){
+    int longRoute(T element, Node<T> node){
 		
 		if (node==null){
 			return 0;

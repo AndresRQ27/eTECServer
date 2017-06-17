@@ -5,7 +5,7 @@ package tec.eTECServer.Grafo;
  * Project: TEC
  * Using IntelliJ
  */
-public class Edge {
+class Edge {
 	private final String id;
 	private final Vertex source;
 	private final Vertex destination;
