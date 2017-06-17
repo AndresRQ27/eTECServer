@@ -27,7 +27,7 @@ public class Pintar {
         g.setColor(Color.BLACK);
         g.drawOval(x, y, 15, 15);
 
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.BLACK);
         Font fuente=new Font("Monospaced",Font.BOLD, 16);
         g.setFont(fuente);
         g.drawString(n, x, y);

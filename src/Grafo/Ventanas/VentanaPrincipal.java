@@ -6,6 +6,7 @@ import Grafo.Clases.Algoritmo_Dijkstra;
 import Grafo.Clases.Algoritmo_Prim;
 import Grafo.General.Listas;
 import Grafo.General.Tipos;
+import tec.eTECServer.PtosServicio.Tienda;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -350,6 +351,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         case "Tienda": {
                             tipo = Tipos.TIENDA;
                             Listas.listaTipos.add(tipo);
+                            Tienda.listaTiendas.add(new Tienda(tope));
                             break;
                         }
 

@@ -5,7 +5,7 @@ import Grafo.Clases.Pintar;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  * Created by Melany on 15/06/2017.
@@ -45,6 +45,7 @@ class VentanaArista extends javax.swing.JFrame {
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
         n1 = new javax.swing.JTextField();
         n2 = new javax.swing.JTextField();
         tm = new javax.swing.JTextField();
@@ -68,19 +69,19 @@ class VentanaArista extends javax.swing.JFrame {
 
         jLabel1.setText("Digite el Nodo 1");
         panel.add(jLabel1);
-        jLabel1.setBounds(10, 30, 90, 14);
+        jLabel1.setBounds(10, 30, 270, 20);
 
         jLabel2.setText("Digite el Nodo 2");
         panel.add(jLabel2);
-        jLabel2.setBounds(10, 60, 90, 14);
+        jLabel2.setBounds(10, 80, 270, 20);
 
-        jLabel3.setText("digite el Tiempo");
+        jLabel3.setText("Digite el Tiempo");
         panel.add(jLabel3);
-        jLabel3.setBounds(10, 90, 100, 14);
+        jLabel3.setBounds(10, 130, 270, 20);
 
-        jLabel3.setText("escriba la Peligrosidad");
-        panel.add(jLabel3);
-        jLabel3.setBounds(10, 120, 100, 14);
+        jLabel4.setText("Escriba la Peligrosidad");
+        panel.add(jLabel4);
+        jLabel4.setBounds(10, 180, 270, 20);
 
         n1.addActionListener(this::n1ActionPerformed);
         n1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -92,7 +93,7 @@ class VentanaArista extends javax.swing.JFrame {
             }
         });
         panel.add(n1);
-        n1.setBounds(110, 30, 30, 20);
+        n1.setBounds(450, 30, 100, 20);
 
         n2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
@@ -100,7 +101,7 @@ class VentanaArista extends javax.swing.JFrame {
             }
         });
         panel.add(n2);
-        n2.setBounds(110, 60, 30, 20);
+        n2.setBounds(450, 80, 100, 20);
 
         tm.addActionListener(this::tmActionPerformed);
         tm.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -109,38 +110,21 @@ class VentanaArista extends javax.swing.JFrame {
             }
         });
         panel.add(tm);
-        tm.setBounds(110, 90, 30, 20);
+        tm.setBounds(450, 130, 100, 20);
 
-        pe.addActionListener(this::peActionPerformed);
-        pe.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(KeyEvent evt) {
-                peKeyReleased(evt);
-            }
-        });
         panel.add(pe);
-        pe.setBounds(110, 90, 30, 20);
+        pe.setBounds(450, 180, 100, 20);
 
         getContentPane().add(panel);
-        panel.setBounds(10, 10, 150, 130);
+        panel.setBounds(10, 10, 565, 230);
 
         jButton1.setText("Trazar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
         getContentPane().add(jButton1);
-        jButton1.setBounds(40, 140, 90, 23);
+        jButton1.setBounds(40, 270, 90, 23);
 
-        setBounds(60, 150, 183, 209);
+        setBounds(160, 180, 583, 309);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void peKeyReleased(KeyEvent evt) {
-        String tem = pe.getText();
-        StringBuilder tem2= new StringBuilder();
-        for (int j = 0; j < tem.length(); j++) {
-            if(Character.isDigit(tem.charAt(j))){
-                tem2.append(tem.charAt(j));
-            }
-        }
-        pe.setText(""+tem2);
-    }
 
     private void peActionPerformed(ActionEvent actionEvent) {
 
@@ -169,6 +153,7 @@ class VentanaArista extends javax.swing.JFrame {
                 n1.setText(null);
                 n2.setText(null);
                 tm.setText(null);
+                pe.setText(null);
                 Pintar.pintarLinea(VentanaPrincipal.jPanel1.getGraphics(),grafos.getCordeX(x), grafos.getCordeY(x), grafos.getCordeX(y), grafos.getCordeY(y), ta, pe.getText());
 
             }
