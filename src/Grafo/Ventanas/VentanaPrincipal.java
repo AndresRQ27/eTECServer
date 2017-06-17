@@ -39,15 +39,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public static int ingresarNodoOrigen(String nodoOrige, String noExiste,int tope){
-        int nodoOrigen;
+        int nodoOrigen = -1;
         try{
             nodoOrigen = Integer.parseInt(JOptionPane.showInputDialog(""+nodoOrige));
             if(nodoOrigen>=tope){
                 JOptionPane.showMessageDialog(null,""+noExiste+"\nDebe de ingresar  un Nodo existente");
                 nodoOrigen = ingresarNodoOrigen(nodoOrige,noExiste, tope);
+            } else {
+
             }
         }catch(Exception ex){
-            nodoOrigen = ingresarNodoOrigen(nodoOrige,noExiste,tope);
+            JOptionPane.getRootFrame().dispose();
         }
         return nodoOrigen;
     }
@@ -332,6 +334,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     grafo.setCordeX(tope,xxx);
                     grafo.setCordeY(tope,yyy);
                     grafo.setNombre(tope, tope);
+
+                    String[] possibleValues = { "Tienda", "Gasolinera", "Centro de Distribución" };
+                    String selectedValue = (String) JOptionPane.showInputDialog(null,
+                            "Choose one", "Input",
+                            JOptionPane.INFORMATION_MESSAGE, null,
+                            possibleValues, possibleValues[0]);
+
                     Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
                     tope++;
                 }
@@ -582,7 +591,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             nodoFin =  ingresarNodoOrigen("Ingrese Nodo Fin..","nodo fin No existe",tope);
             Algoritmo_Dijkstra Dijkstra = new Algoritmo_Dijkstra(grafo,tope,permanente,nodoFin);
             Dijkstra.dijkstra();
-            jtacumulado.setText(""+Dijkstra.getAcumulado());
         }
         else JOptionPane.showMessageDialog(null,"Se deben de crear mas nodos ... ");
     }//GEN-LAST:event_jMenuItem13ActionPerformed
