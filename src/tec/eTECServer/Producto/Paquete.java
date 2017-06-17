@@ -7,7 +7,7 @@ public class Paquete {
 	private String estado;
 	
 	public Paquete(){
-		this.estado = "Transito";
+		this.estado = "En tránsito";
 	}
 
 	public ArrayList<Producto> getProductos() {
