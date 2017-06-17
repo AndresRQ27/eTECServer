@@ -2,6 +2,9 @@ package Grafo.Ventanas;
 
 import Grafo.Clases.Grafo;
 import Grafo.Clases.Pintar;
+import Grafo.General.Listas;
+import Grafo.General.Tipos;
+
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 
@@ -23,7 +26,7 @@ public class EliminarAristas extends javax.swing.JFrame {
             }
         }
         for (int j = 0; j < i; j++) {
-            Pintar.pintarCirculo(VentanaPrincipal.jPanel1.getGraphics(), arboles.getCordeX(j),arboles.getCordeY(j),String.valueOf(arboles.getNombre(j)));
+            Pintar.pintarCirculo(VentanaPrincipal.jPanel1.getGraphics(), arboles.getCordeX(j),arboles.getCordeY(j),String.valueOf(arboles.getNombre(j)), Tipos.getColor(Listas.listaTipos.get(j)));
 
         }
     }

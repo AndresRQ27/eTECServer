@@ -4,9 +4,11 @@ import Grafo.Clases.Grafo;
 import Grafo.Clases.Pintar;
 import Grafo.Clases.Algoritmo_Dijkstra;
 import Grafo.Clases.Algoritmo_Prim;
+import Grafo.General.Listas;
+import Grafo.General.Tipos;
+
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -34,7 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
         for (int j = 0; j < tope; j++)
-            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(j),grafo.getCordeY(j),String.valueOf(grafo.getNombre(j)));
+            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(j),grafo.getCordeY(j),String.valueOf(grafo.getNombre(j)), Tipos.getColor(Listas.listaTipos.get(j)));
 
     }
 
@@ -53,17 +55,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         return nodoOrigen;
     }
-    private int ingresarTamano(String tama){
-        int tamano;
+    private int ingresarTiempo(String temp){
+        int tiempo;
         try{
-            tamano = Integer.parseInt(JOptionPane.showInputDialog(""+tama));
-            if(tamano<1){ JOptionPane.showMessageDialog(null,"Debe Ingresar un Tamaño Aceptado..");
-                tamano = ingresarTamano(tama);//no es nesario hacer esto
+            tiempo = Integer.parseInt(JOptionPane.showInputDialog(""+temp));
+            if(tiempo<1){ JOptionPane.showMessageDialog(null,"Debe Ingresar un Tamaño Aceptado..");
+                tiempo = ingresarTiempo(temp);//no es nesario hacer esto
             }
         }catch(Exception ex){
-            tamano = ingresarTamano(tama);
+            tiempo = ingresarTiempo(temp);
         }
-        return tamano;
+        return tiempo;
     }
     private boolean clickDerechoSobreNodo(int xxx, int yyy, int clickCount){
 
@@ -82,7 +84,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null, Color.orange);
                         if (id == id2) {// si id == id2 por q se volvio a dar click sobre el mismos nodo, se cancela el click anterio
                             n = 0;
-                            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)));
+                            Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)), Tipos.getColor(Listas.listaTipos.get(id)));
                             id = -1;
                             id2 = -1;
                         }
@@ -341,22 +343,45 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                             JOptionPane.INFORMATION_MESSAGE, null,
                             possibleValues, possibleValues[0]);
 
-                    Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
+                    Tipos tipo = Tipos.TIENDA;
+
+                    switch (selectedValue){
+
+                        case "Tienda": {
+                            tipo = Tipos.TIENDA;
+                            Listas.listaTipos.add(tipo);
+                            break;
+                        }
+
+                        case "Gasolinera": {
+                            tipo = Tipos.GASOLINERA;
+                            Listas.listaTipos.add(tipo);
+                            break;
+                        }
+
+                        case "Centro de Distribución": {
+                            tipo = Tipos.CENTRO_DE_DISTRIBUCION;
+                            Listas.listaTipos.add(tipo);
+                            break;
+                        }
+                    }
+
+                    Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)), tipo.getColor(tipo));
                     tope++;
                 }
                 else JOptionPane.showMessageDialog(null,"Se ha llegado al Maximo de nodos..");
             }
             if(n==2){
                 n=0;
-                int  ta = ingresarTamano("Ingrese Tamaño");
+                int  ta = ingresarTiempo("Ingrese Tiempo");
                 if(aristaMayor < ta) aristaMayor=ta;
                 grafo.setmAdyacencia(id2, id, 1);
                 grafo.setmAdyacencia(id, id2, 1);
                 grafo.setmCoeficiente(id2, id,ta );
                 grafo.setmCoeficiente(id, id2, ta);
                 Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id), grafo.getCordeX(id2), grafo.getCordeY(id2), ta);
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)));
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)));
+                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)), Tipos.getColor(Listas.listaTipos.get(id)));
+                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)), Tipos.getColor(Listas.listaTipos.get(id2)));
                 id=-1;
                 id2=-1;
             }
