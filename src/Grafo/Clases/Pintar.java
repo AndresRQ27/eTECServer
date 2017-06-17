@@ -10,10 +10,10 @@ import java.awt.RenderingHints;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
 public class Pintar {
-    Color color;
-
 
     public Pintar() {
 
@@ -34,7 +34,7 @@ public class Pintar {
 
     }
 
-    public static void pintarLinea(Graphics g, int x1,int y1,int x2,int y2,int tam){
+    public static void pintarLinea(Graphics g, int x1,int y1,int x2,int y2,int tam, String peligr){
         int xAux = 0; int yAux = 0;
         ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
         BasicStroke stroke = new BasicStroke(2);
@@ -49,9 +49,9 @@ public class Pintar {
         if(y1>=y2)
             yAux=((y1-y2)/2)+y2;
         // ((Graphics2D)g).setColor(Color.black);
-        Font fuente=new Font("Monospaced",Font.PLAIN, 12);
+        Font fuente=new Font("Monospaced",Font.PLAIN, 15);
         g.setFont(fuente);
-        g.drawString(String.valueOf(tam), xAux, yAux);
+        g.drawString(String.valueOf(tam)+"-"+peligr, xAux, yAux);
     }
     public static void pintarCamino(Graphics g, int x1,int y1,int x2,int y2, Color color){
         ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
@@ -61,10 +61,10 @@ public class Pintar {
         g.drawLine(x1+10, y1+10, x2+10, y2+10);
         //g.drawString(String.valueOf(tam), x1, y1);
     }
-    public static void clickSobreNodo(Graphics g,int x,int y,String n,Color co){
+    public static void clickSobreNodo(Graphics g, int x, int y, Color co){
         //g.drawOval(x, y-10, 20, 20);
         g.setColor(co);
-        ((Graphics2D)g).setStroke(new BasicStroke(4));//leda el grosor al circulo
+        ((Graphics2D)g).setStroke(new BasicStroke(4));//le da el grosor al circulo
         g.fillOval(x, y, 15, 15);
         g.setColor(Color.BLACK);
         g.drawOval(x, y, 15, 15);

@@ -2,6 +2,8 @@ package Grafo.Clases;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
 public class Nodo {
 
@@ -29,7 +31,7 @@ public class Nodo {
     }
 
     public boolean isEtiqueta() {
-        return etiqueta;
+        return !etiqueta;
     }
 
     public int getAcumulado() {
@@ -44,12 +46,12 @@ public class Nodo {
         this.nombre = nombre;
     }
 
-    public void setVisitado(boolean visitado) {
-        this.visitado = visitado;
+    public void setVisitado() {
+        this.visitado = true;
     }
 
-    public void setEtiqueta(boolean etiqueta) {
-        this.etiqueta = etiqueta;
+    public void setEtiqueta() {
+        this.etiqueta = true;
     }
 
     public void setAcumulado(int acomulado) {

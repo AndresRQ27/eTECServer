@@ -6,7 +6,7 @@ import java.util.List;
  * Project: TEC
  * Using IntelliJ
  */
-public class Graph {
+class Graph {
 	private final List<Vertex> vertexes;
 	private final List<Edge> edges;
 	

@@ -8,6 +8,8 @@ import java.awt.Color;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
 public class Algoritmo_Prim {
     private int cumulado;
@@ -18,11 +20,9 @@ public class Algoritmo_Prim {
     private int nodoApuntado;
     private int nodoApuntador;
     private int tamano;
-    private int arsitaMayor;
-    private  Grafo arboles;
-    private int tope;
-    private  int  nodoOrigen;
-
+    private final int arsitaMayor;
+    private final Grafo arboles;
+    private final int tope;
 
 
     public Algoritmo_Prim(Grafo arbol , int top ,int aristaMayor ){
@@ -45,7 +45,7 @@ public class Algoritmo_Prim {
 
 
     public void prim(){
-        this.nodoOrigen= ingresarNodoOrigen("Ingrese Nodo Origen..","nodo Origen No existe",tope);
+        int nodoOrigen = ingresarNodoOrigen("Ingrese Nodo Origen..", "nodo Origen No existe", tope);
         jPanel1.paint(jPanel1.getGraphics());
         R_repaint(tope,arboles);
         arboles.crearEnArbol(tope);
@@ -63,7 +63,7 @@ public class Algoritmo_Prim {
                                 break;
                             }
                         }
-                        if(estaNodo==false){
+                        if(!estaNodo){
                             if(arboles.getmCoeficiente(k, arboles.getEnArbol(j))<=aristaMenor && arboles.getmCoeficiente(k, arboles.getEnArbol(j))>0 ){
                                 aristaMenor=arboles.getmCoeficiente(k, arboles.getEnArbol(j));
                                 this.nodoApuntado=k;
@@ -76,10 +76,10 @@ public class Algoritmo_Prim {
                     }
                 }
             }//fin  for (int j = 0; j < tamano; j++)
-            if(aumentaTamano==true){
+            if(aumentaTamano){
                 Pintar.pintarCamino(jPanel1.getGraphics(),arboles.getCordeX(nodoApuntador), arboles.getCordeY(nodoApuntador),arboles.getCordeX(nodoApuntado), arboles.getCordeY(nodoApuntado), Color.red);
-                Pintar.clickSobreNodo(jPanel1.getGraphics(),arboles.getCordeX(nodoApuntador), arboles.getCordeY(nodoApuntador), null,Color. red);
-                Pintar.clickSobreNodo(jPanel1.getGraphics(),arboles.getCordeX(nodoApuntado), arboles.getCordeY(nodoApuntado), null, Color.red);
+                Pintar.clickSobreNodo(jPanel1.getGraphics(),arboles.getCordeX(nodoApuntador), arboles.getCordeY(nodoApuntador), Color. red);
+                Pintar.clickSobreNodo(jPanel1.getGraphics(),arboles.getCordeX(nodoApuntado), arboles.getCordeY(nodoApuntado), Color.red);
                 arboles.setEnArbol(tamano, nodoApuntado);
                 this.tamano++;
                 this.aumentaTamano=false;

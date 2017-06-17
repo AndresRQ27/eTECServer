@@ -11,9 +11,11 @@ import javax.swing.JOptionPane;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
-public class EliminarAristas extends javax.swing.JFrame {
-    int i;
+class EliminarAristas extends javax.swing.JFrame {
+    private final int i;
     /**
      * Creates new form EliminarArists
      */
@@ -22,7 +24,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         for (int j = 0; j < i; j++) {
             for (int k = 0; k < i; k++) {
                 if(arboles.getmAdyacencia(j, k) == 1)
-                    Pintar.pintarLinea(VentanaPrincipal.jPanel1.getGraphics(),arboles.getCordeX(j),arboles.getCordeY(j), arboles.getCordeX(k), arboles.getCordeY(k),arboles.getmCoeficiente(j, k));
+                    Pintar.pintarLinea(VentanaPrincipal.jPanel1.getGraphics(),arboles.getCordeX(j),arboles.getCordeY(j), arboles.getCordeX(k), arboles.getCordeY(k),arboles.getmCoeficiente(j, k), arboles.getnCoeficiente(j,k));
             }
         }
         for (int j = 0; j < i; j++) {
@@ -30,9 +32,9 @@ public class EliminarAristas extends javax.swing.JFrame {
 
         }
     }
-    Pintar pintar ;
-    Grafo arboles ;
-    Frame frame;
+    private final Pintar pintar ;
+    private final Grafo arboles ;
+    private final Frame frame;
     public EliminarAristas(Pintar pinta , Grafo arbole ,int ii, Frame fram) {
         initComponents();
         i=ii;
@@ -50,12 +52,12 @@ public class EliminarAristas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         n1 = new javax.swing.JTextField();
         n2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
+        javax.swing.JButton jButton1 = new javax.swing.JButton();
 
         setTitle(":Eliminr:");
         setPreferredSize(new java.awt.Dimension(159, 343));
@@ -70,7 +72,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Eliminar Arista"));
         jPanel1.setLayout(null);
 
-        n1.addActionListener(evt -> n1ActionPerformed(evt));
+        n1.addActionListener(this::n1ActionPerformed);
         n1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 n1KeyPressed(evt);
@@ -82,7 +84,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.add(n1);
         n1.setBounds(100, 30, 30, 20);
 
-        n2.addActionListener(evt -> n2ActionPerformed(evt));
+        n2.addActionListener(this::n2ActionPerformed);
         n2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 n2KeyReleased(evt);
@@ -103,7 +105,7 @@ public class EliminarAristas extends javax.swing.JFrame {
         jPanel1.setBounds(10, 10, 150, 90);
 
         jButton1.setText("Eliminar");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         getContentPane().add(jButton1);
         jButton1.setBounds(30, 110, 90, 23);
 
@@ -201,11 +203,6 @@ public class EliminarAristas extends javax.swing.JFrame {
 
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField n1;
     private javax.swing.JTextField n2;
     // End of variables declaration//GEN-END:variables

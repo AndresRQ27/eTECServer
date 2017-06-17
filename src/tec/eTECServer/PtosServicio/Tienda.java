@@ -3,7 +3,7 @@ package tec.eTECServer.PtosServicio;
 import tec.eTECServer.Producto.Producto;
 import tec.eTECServer.trees.BinaryTree;
 
-public class Tienda {
+class Tienda {
 	private BinaryTree<Producto> bodega;
 	
 	public Tienda(){

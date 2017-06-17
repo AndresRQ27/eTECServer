@@ -2,14 +2,17 @@ package Grafo.Clases;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
 public class Grafo {
 
-    private int mCoeficiente[][] = new int [51][51];
-    private int mAdyacencia [][] = new int [51][51];
-    private int cordeX [] = new int [51];
-    private int cordeY [] = new int [51];
-    private int nombre [] = new int [51];
+    private final int[][] mCoeficiente = new int [51][51];
+    private final int[][] mAdyacencia  = new int [51][51];
+    private final String[][] nCoeficiente  = new String [51][51];
+    private final int[] cordeX  = new int [51];
+    private final int[] cordeY  = new int [51];
+    private final int[] nombre  = new int [51];
     private int enArbol [];
 
 
@@ -69,6 +72,13 @@ public class Grafo {
         enArbol = new int [i];
     }
 
+    public String getnCoeficiente(int i, int j) {
+        return nCoeficiente[i][j];
+    }
+
+    public void setnCoeficiente(int i, int j, String nCoeficiente){
+        this.nCoeficiente[i][j] = nCoeficiente;
+    }
 }
 
 

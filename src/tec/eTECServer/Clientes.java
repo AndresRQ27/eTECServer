@@ -15,7 +15,7 @@ import tec.eTECServer.trees.BinaryTree;
 @Path("/clientes")
 public class Clientes {
 	
-	private static BinaryTree<Cliente> clientes = new BinaryTree<>();
+	private static final BinaryTree<Cliente> clientes = new BinaryTree<>();
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

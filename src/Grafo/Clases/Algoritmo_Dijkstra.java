@@ -2,7 +2,7 @@ package Grafo.Clases;
 
 import static Grafo.Ventanas.VentanaPrincipal.jPanel1;
 import static Grafo.Ventanas.VentanaPrincipal.R_repaint;
-import static Grafo.Ventanas.VentanaPrincipal.ingresarNodoOrigen;
+
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -10,17 +10,16 @@ import javax.swing.JOptionPane;
 
 /**
  * Created by Melany on 15/06/2017.
+ * eTECServer
+ * ${PACKAGE_NAME}
  */
 public class Algoritmo_Dijkstra {
-    private Grafo grafo;
+    private final Grafo grafo;
     private int subTope;
-    private Nodo auxi=null;
-    private int auxAumulado; // es un acumulado auxiliar
-    private int subAcomulado;
-    private Nodo nodo[];
-    private int tope;
+    private final Nodo[] nodo;
+    private final int tope;
     private int permanente;
-    private int nodoFin;
+    private final int nodoFin;
 
 
     public Algoritmo_Dijkstra (Grafo grafo, int tope,int permanente, int nodoFin){
@@ -43,54 +42,54 @@ public class Algoritmo_Dijkstra {
         if(permanente != nodoFin){
             jPanel1.paint(jPanel1.getGraphics());
             R_repaint(tope, grafo);
-            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(permanente), grafo.getCordeY(permanente), null, Color.GREEN); // pinta de color GREEN los nodos
+            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(permanente), grafo.getCordeY(permanente), Color.GREEN); // pinta de color GREEN los nodos
 
 
-            nodo[permanente].setVisitado(true);
+            nodo[permanente].setVisitado();
             nodo[permanente].setNombre(permanente);
 
             do{
-                subAcomulado=0;
-                auxAumulado = 2000000000; // lo igualamos a esta cifra ya q el acomulado de los nodos, supuestamente  nunca sera mayor
-                nodo[permanente].setEtiqueta(true);
+                int subAcomulado = 0;
+                int auxAumulado = 2000000000;
+                nodo[permanente].setEtiqueta();
                 for (int j = 0; j < tope; j++) {
                     if(grafo.getmAdyacencia(j, permanente)==1){
-                        subAcomulado= nodo[permanente].getAcumulado()+grafo.getmCoeficiente(j, permanente);
-                        if(subAcomulado <= nodo[j].getAcumulado() && nodo[j].isVisitado()==true && nodo[j].isEtiqueta()== false){
+                        subAcomulado = nodo[permanente].getAcumulado()+grafo.getmCoeficiente(j, permanente);
+                        if(subAcomulado <= nodo[j].getAcumulado() && nodo[j].isVisitado() && nodo[j].isEtiqueta()){
                             nodo[j].setAcumulado(subAcomulado);
-                            nodo[j].setVisitado(true);
+                            nodo[j].setVisitado();
                             nodo[j].setNombre(j);
                             nodo[j].setPredecesor(nodo[permanente]);
                         }
-                        else if( nodo[j].isVisitado()==false){
+                        else if(!nodo[j].isVisitado()){
                             nodo[j].setAcumulado(subAcomulado);
-                            nodo[j].setVisitado(true);
+                            nodo[j].setVisitado();
                             nodo[j].setNombre(j);
                             nodo[j].setPredecesor(nodo[permanente]);
                         }
                     }
                 }
                 for (int i = 0; i <tope; i++) { // buscamos cual de los nodos visitado tiene el acomulado menor par escogerlo como permanente
-                    if(nodo[i].isVisitado()== true && nodo[i].isEtiqueta()== false){
-                        if(nodo[i].getAcumulado()<=auxAumulado){
+                    if(nodo[i].isVisitado() && nodo[i].isEtiqueta()){
+                        if(nodo[i].getAcumulado()<= auxAumulado){
                             permanente= nodo[i].getNombre();
-                            auxAumulado= nodo[i].getAcumulado();
+                            auxAumulado = nodo[i].getAcumulado();
                         }
                     }
                 }
                 subTope++;
             }while(subTope<tope+1);
-            auxi= nodo[nodoFin];
+            Nodo auxi = nodo[nodoFin];
             if(auxi.getPredecesor() == null )
                 JOptionPane.showMessageDialog(null,"No se Pudo LLegar Al Nodo "+nodoFin);
             while(auxi.getPredecesor() != null){
                 Pintar.pintarCamino(jPanel1.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), grafo.getCordeX(auxi.getPredecesor().getNombre()), grafo.getCordeY(auxi.getPredecesor().getNombre()),Color.GREEN);
-                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), null,Color.GREEN);
-                auxi=auxi.getPredecesor();
+                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), Color.GREEN);
+                auxi = auxi.getPredecesor();
             }
-            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
+            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), Color.GREEN);
         }
-        else Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
+        else Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), Color.GREEN);
     }
 
 

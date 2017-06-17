@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Stack;
 
 public class BinaryTree<T extends Comparable<T>> {
-	protected Node<T> root;
+	private Node<T> root;
 	//Comparador.
-    Comparator<T> comparator;
-	
+    private Comparator<T> comparator;
+
 	public BinaryTree(){
 		this.root=null;
 	}
@@ -50,7 +50,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			return node.getElement();
 		}
 	}
-	
+
 	//Buscar menor
 	public Node<T> findMin(){
 		return findMin(this.root);
@@ -84,24 +84,24 @@ public class BinaryTree<T extends Comparable<T>> {
 		}
 		return node;
 	}
-	
-	public void inOrden(Node<T> n){
+
+	private void inOrden(Node<T> n){
 		if (n != null){
 			inOrden (n.getLeft());
 			System.out.println(n.getElement() + ", ");
 			inOrden(n.getRight());
 		}
 	}
-	
+
 	//M�todo para recorrer el �rbol PreOrden
-	public void preOrden(Node<T> n){
+    private void preOrden(Node<T> n){
 		if (n != null){
 			System.out.println(n.getElement() + ", ");
 			preOrden (n.getLeft());
 			preOrden (n.getRight());
 		}
 	}
-	
+
 	//M�todo para recorrer el �rbol PostOrden
 	public void postOrden(Node<T> n){
 		if (n != null){
@@ -110,7 +110,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			System.out.println(n.getElement() + ", ");
 		}
 	}
-	
+
 	//Devuelve la profundidad del nodo, si no est� en el �rbol devurlve -1
     public int profundidad(T element){
     	Node<T> node = new Node<>(element);
@@ -120,24 +120,24 @@ public class BinaryTree<T extends Comparable<T>> {
     		node = father(node);
 
     	}
-    	
+
     	return profundidad;
-    
+
     }
-    
+
   //Devuelve la altura del nodo, sino esta en el �rbol devuelve -1
     public int altura(T dato){
     	Node<T> node = this.getNode(dato);
     	if(!this.contains(dato)){
     		return -1;
     	}
-    	
+
     	return node.getHeight();
     }
-        
-    
+
+
   //Compara dos elementos
-    public int comparateElement(T t1, T t2){
+  int comparateElement(T t1, T t2){
     	if(this.comparator==null){
     		return t1.compareTo(t2);
     	}else{
@@ -148,7 +148,7 @@ public class BinaryTree<T extends Comparable<T>> {
 
     
   //Obtiene el nodo padre
-  	public Node<T> father(Node<T> nodo){
+  private Node<T> father(Node<T> nodo){
   		Node<T> tmpRoot = this.getRoot();
   		Stack<Node<T>> pila = new Stack<>();
       	pila.push(tmpRoot);	
@@ -173,7 +173,7 @@ public class BinaryTree<T extends Comparable<T>> {
   	}
   	
   //Devuelve el nodo del elemento ingresado
-    public Node<T> getNode(T dato){
+  Node<T> getNode(T dato){
      	Node<T> tmpRoot = this.getRoot();
      	
      	if(this.isEmpty()){
@@ -205,17 +205,17 @@ public class BinaryTree<T extends Comparable<T>> {
     }
     
   //Si esta vacio es true
-    public boolean isEmpty(){
+  boolean isEmpty(){
     	return this.size()==0;
 
     }
     
-    public int size(){
+    int size(){
     	return this.preOrden().size();
     }
     
   //Imprime en orden primero ra�z, despues izquierda y despues derecha
-    public List<T> preOrden(){
+  List<T> preOrden(){
     	List<T> list = new ArrayList<>();
     	Node<T> node = this.getRoot();  	
     	Stack<Node<T>> pila = new Stack<>();
@@ -235,7 +235,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
     
   //Buscar un nodo
-    public boolean contains(Object o) throws ClassCastException, NullPointerException{
+  boolean contains(Object o) throws ClassCastException, NullPointerException{
     	Node<T> raizTmp = this.getRoot();
     	if(this.isEmpty()){
     		return false;
@@ -269,12 +269,12 @@ public class BinaryTree<T extends Comparable<T>> {
     	return false;
     }
     
-ArrayList<T> camino = new ArrayList<>();
+private final ArrayList<T> camino = new ArrayList<>();
     
-    public ArrayList<T> route(T element){
-		return this.route(element, this.root);
+    public ArrayList<T> route(){
+		return this.route((T) "17", this.root);
 	}
-    public ArrayList<T> route(T element, Node<T> node){
+    ArrayList<T> route(T element, Node<T> node){
 		
 		if (node==null){
 			return null;
@@ -290,11 +290,11 @@ ArrayList<T> camino = new ArrayList<>();
 			return camino;
 		}
 	}
-    
+
     public int longRoute(T element){
 		return this.longRoute(element, this.root);
 	}
-    public int longRoute(T element, Node<T> node){
+    int longRoute(T element, Node<T> node){
 		
 		if (node==null){
 			return 0;

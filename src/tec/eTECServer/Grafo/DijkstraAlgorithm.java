@@ -15,10 +15,9 @@ import java.util.Set;
  * Using IntelliJ
  */
 
-public class DijkstraAlgorithm {
-	
-	private final List<Vertex> nodes;
-	private final List<Edge> edges;
+class DijkstraAlgorithm {
+
+    private final List<Edge> edges;
 	private Set<Vertex> settledNodes;
 	private Set<Vertex> unSettledNodes;
 	private Map<Vertex, Vertex> predecessors;
@@ -26,7 +25,7 @@ public class DijkstraAlgorithm {
 	
 	public DijkstraAlgorithm(Graph graph) {
 		// create a copy of the array so that we can operate on this array
-		this.nodes = new ArrayList<>(graph.getVertexes());
+        List<Vertex> nodes = new ArrayList<>(graph.getVertexes());
 		this.edges = new ArrayList<>(graph.getEdges());
 	}
 	

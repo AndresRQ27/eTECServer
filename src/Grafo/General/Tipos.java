@@ -10,13 +10,13 @@ import java.awt.*;
 public enum Tipos {
     CENTRO_DE_DISTRIBUCION, GASOLINERA, TIENDA;
 
-    public static Color getColorCentro(){
+    private static Color getColorCentro(){
         return Color.BLUE;
     }
-    public static Color getColorTienda(){
+    private static Color getColorTienda(){
         return Color.RED;
     }
-    public static Color getColorGasolinera(){
+    private static Color getColorGasolinera(){
         return Color.YELLOW;
     }
 
