@@ -13,7 +13,8 @@ public class Cliente implements Comparable<Cliente>{
 
 	}
 
-	public Cliente(String nombre){
+	public Cliente(String nombre) {
+		super();
 		this.nombre = nombre;
 	}
 
